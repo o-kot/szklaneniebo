@@ -1,15 +1,177 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('clouds.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+}
+
+body.blurred {
+  filter: blur(5px);
+}
+
+.overlay {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  margin: 40px;
+  border-radius: 10px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top */
+  min-height: 80vh; /* Adjusted to leave some space for margins */
+  padding: 20px;
+}
+
+.logo img {
+  max-width: 450px; /* Adjust the size as needed */
+  height: auto;
+  display: block;
+  margin-bottom: 20px; /* Add some margin below it */
+  margin-left: 0; /* Align to the left */
+}
+
+nav {
+  text-align: center;
+  margin: 20px 0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 15px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+nav ul li a:hover {
+  color: #007BFF;
+}
+
+section#about, section#gallery {
+  display: none;
+}
+
+section#about.active, section#gallery.active {
+  display: block;
+}
+
+.left-column {
+  max-width: 600px;
+  padding-right: 40px;
+  text-align: justify;
+}
+
+.left-column p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.left-column p.signature {
+  font-family: 'Pacifico', cursive; /* Example of a cursive font */
+  font-size: 2rem;
+  color: #007BFF; /* Adjust the color as needed */
+  margin-top: 20px; /* Adjust the margin as needed */
+  text-align: right; /* Align the text to the right */
+}
+
+.right-column img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gallery {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.gallery-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.category {
+  flex: 1 1 45%; /* Each category takes up about half the width, adjust as needed */
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category h3 {
+  font-family: 'Poppins', sans-serif; /* Use a modern, clean font */
+  font-size: 1.8rem; /* Adjust size as needed */
+  color: #333; /* Darker color for better contrast */
+  text-transform: uppercase; /* Makes the text uppercase */
+  letter-spacing: 1px; /* Adds some spacing between letters */
+  margin-bottom: 20px; /* Adds space below the header */
+  border-bottom: 2px solid #007BFF; /* Adds a bottom border for emphasis */
+  padding-bottom: 10px; /* Adds padding below the text */
+  text-align: center; /* Centers the text */
+}
+
+.gallery-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+}
+
+.gallery-item {
+  height: 250px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.gallery-item a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none; /* Remove underline from links */
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item img {
+  max-height: 100%; /* Ensure the image fills the container height */
+  max-width: 100%; /* Ensure the image fills the container width */
+  object-fit: contain; /* Ensure the entire image is visible */
+  display: block; /* Ensure block-level formatting context */
+  margin: auto; /* Center the image horizontally and vertically */
+  border-radius: 5px;
+}
+
+.fancybox-content {
+  max-width: 800px;
+  max-height: 90vh; /* Ensure the image fits within the viewport height */
+  width: 800px;
+  height: auto;
+}
+
+.fancybox-image {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+}
