@@ -45,26 +45,26 @@ section.background
           .gallery-content
             - @angels.each do |angel|
               .gallery-item
-                a(data-fancybox="Angel Gallery" href=asset_path(angel[:src]))
-                  img src=asset_path(angel[:src]) alt=angel[:alt]
+                a(data-fancybox="Angel Gallery" href=rails_blob_path(angel.image, only_path: true))
+                  img src=rails_blob_path(angel.image, only_path: true) alt="Angel stained glass"
         .category
           h3 Lampy, lampiony
           .gallery-content
             - @lamps.each do |lamp|
               .gallery-item
-                a(data-fancybox="Lamp Gallery" href=asset_path(lamp[:src]))
-                  img src=asset_path(lamp[:src]) alt=lamp[:alt]
+                a(data-fancybox="Lamp Gallery" href=rails_blob_path(lamp.image, only_path: true))
+                  img src=rails_blob_path(lamp.image, only_path: true) alt="Stained glass lamp"
         .category
           h3 Mandale
           .gallery-content
             - @mandala.each do |mandala|
               .gallery-item
-                a(data-fancybox="Mandala Gallery" href=asset_path(mandala[:src]))
-                  img src=asset_path(mandala[:src]) alt=mandala[:alt]
+                a(data-fancybox="Mandala Gallery" href=rails_blob_path(mandala.image, only_path: true))
+                  img src=rails_blob_path(mandala.image, only_path: true) alt="Stained glass mandala"
         .category
           h3 Różne
           .gallery-content
             - @misc.each do |misc|
               .gallery-item
-                a(data-fancybox="Various Gallery" href=asset_path(misc[:src]))
-                  img src=asset_path(misc[:src]) alt=misc[:alt]
+                a(data-fancybox="Various Gallery" href=rails_blob_path(misc.image, only_path: true))
+                  img src=rails_blob_path(misc.image, only_path: true) alt="Stained glass artwork"
