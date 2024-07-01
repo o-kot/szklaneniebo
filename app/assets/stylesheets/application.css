@@ -34,6 +34,8 @@ body.blurred {
   margin-left: 0; /* Align to the left */
 }
 
+/* Navigation */
+
 nav {
   text-align: center;
   margin: 20px 0;
@@ -60,6 +62,8 @@ nav ul li a {
 nav ul li a:hover {
   color: #007BFF;
 }
+
+/* Viewer */
 
 section#about, section#gallery {
   display: none;
@@ -93,6 +97,8 @@ section#about.active, section#gallery.active {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* Gallery */
 
 .gallery {
   text-align: center;
@@ -174,4 +180,76 @@ section#about.active, section#gallery.active {
 .fancybox-image {
   width: 100%;
   height: auto; /* Maintain aspect ratio */
+}
+
+/* Admin */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
+input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-style: italic;
+  color: #999;
+}
+
+.password-container {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 35%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+}
+
+input[type="password"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.alert {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #f5c6cb;
+  text-align: center;
 }

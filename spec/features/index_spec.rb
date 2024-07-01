@@ -17,8 +17,12 @@ RSpec.feature "IndexPage", type: :feature do
     expect(page).to have_css("img[src*='logo']")
   end
 
-  scenario "loads the main photo" do
+  before(:each) do
+    @autor = create(:author)
+  end
+
+  scenario "loads the artist's photo" do
     visit root_path
-    expect(page).to have_css("img[src*='alice']")
+    expect(page).to have_css("img[alt='Artist portrait']")
   end
 end

@@ -1,0 +1,19 @@
+.container
+  .overlay
+    .logo
+      img src=asset_path('logo.png') alt="Logo"
+
+    - if flash[:alert]
+      .alert = flash[:alert]
+
+    = form_with(url: admin_login_path, local: true) do |f|
+      div
+        = f.label :username, 'Login'
+        = f.text_field :username, value: 'admin', readonly: true
+      div
+        = f.label :password, 'Hasło'
+        .password-container
+          = f.password_field :password, id: 'password'
+          i.fas.fa-eye.eye-icon
+      div
+        = f.submit 'Zaloguj'

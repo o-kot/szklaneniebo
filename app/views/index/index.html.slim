@@ -34,9 +34,9 @@ section.background
           p.signature
             | Alicja Zapolska
 
-
         .right-column
-          img src=asset_path('alice.png') alt="Me in front of the catherdral"
+          - if @autor&.photo&.attached?
+            img src=rails_blob_path(@autor.photo, only_path: true) alt="Artist portrait"
 
     section#gallery
       .gallery-categories
