@@ -10,4 +10,9 @@ RSpec.describe Author, type: :model do
     author = create(:author)
     expect(author.photo).to be_attached
   end
+
+  it "is not valid without an about text" do
+    author = build(:author, about: nil)
+    expect(author).to_not be_valid
+  end
 end
