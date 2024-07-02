@@ -11,28 +11,10 @@ section.background
     section#about
       .content
         .left-column
-          p
-            | Fascynacja witrażami była we mnie od zawsze.
-          p
-            | Obraz, który się zmienia. Gra światła do słonecznej muzyki.
-          p
-            | Kiedyś byłam przekonana, że witraże to hobby dla nielicznych.
-          p
-            | I tak jest - wymaga cierpliwości, pokory, akceptacji, niespieszności.
-          p
-            | Szkło - kruche i twarde, zimne i ciepłe, delikatne i ostre...
-          p
-            | Zauroczyło mnie i wypełniło wolne chwile.
-          p
-            | Witrażowe hobby trwa już kilka lat, pracuję w technice Tiffaniego.
-          p
-            | Moje prace goszczą w wielu domach, zarówno w Polsce jak i za granicą.
-          p
-            | KONTAKT - alicja-631@wp.pl
-          p
-            | Dziękuję za odwiedzenie mej strony...
+          - @autor.about.split("\n").each do |paragraph|
+            p = paragraph
           p.signature
-            | Alicja Zapolska
+            = @autor.name
 
         .right-column
           - if @autor&.photo&.attached?
