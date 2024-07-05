@@ -11,4 +11,9 @@ class Admin::SessionsController < ApplicationController
       render :new
     end
   end
+
+  def destroy
+    session[:admin] = nil
+    redirect_to admin_login_path, notice: 'Zostałeś wylogowany'
+  end
 end

@@ -26,5 +26,13 @@ RSpec.describe Admin::SessionsController, type: :controller do
         expect(flash[:alert]).to eq('Nieprawdidłowe hasło albo login')
       end
     end
+
+    it "logs out the admin and redirects to login page with notice" do
+      session[:admin] = true
+      delete :destroy
+      expect(session[:admin]).to be_nil
+      expect(response).to redirect_to(admin_login_path)
+      expect(flash[:notice]).to eq('Zostałeś wylogowany')
+    end
   end
 end
