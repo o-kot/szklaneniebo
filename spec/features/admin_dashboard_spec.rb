@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.feature "AdminDashboard", type: :feature do
   before do
     DatabaseCleaner.clean_with(:truncation)
-    @autor = create(:author)
     @category = create(:category)
-    login_admin
+    @autor = create(:author) # Ensure the author is created here
+    login_as_admin
   end
 
   scenario "redirects to login page if not authenticated" do
-    logout_admin
+    visit admin_logout_path
     visit admin_dashboard_path
     expect(page).to have_current_path(admin_login_path)
   end
@@ -28,21 +28,28 @@ RSpec.feature "AdminDashboard", type: :feature do
     expect(page).to have_content('Tekst o sobie został zaktualizowany.')
   end
 
-  scenario "creates a new category" do
+  scenario "creates a new category and shows a success message" do
     visit admin_dashboard_path
     fill_in 'Nazwa kategorii', with: 'New Category'
     click_link_or_button 'Dodaj kategorię'
     expect(page).to have_content('Dodano nową kategorię do galerii')
   end
 
-  scenario "new category is added to the database" do
+  scenario "creates a new category and verifies the category name" do
     visit admin_dashboard_path
     fill_in 'Nazwa kategorii', with: 'New Category'
     click_link_or_button 'Dodaj kategorię'
     expect(Category.last.name).to eq('New Category')
   end
 
-  scenario "selects a category and attaches a photo" do
+  # Remove or add an expectation to the following scenario
+  scenario "navigates to admin dashboard and selects a category" do
+    visit admin_dashboard_path
+    select @category.name, from: 'photo_category_id'
+    expect(page).to have_select('photo_category_id', selected: @category.name) # Added expectation
+  end
+
+  scenario "uploads a photo to the selected category" do
     visit admin_dashboard_path
     select @category.name, from: 'photo_category_id'
     attach_file('photo_images', Rails.root.join('spec/fixtures/files/sample.jpg'))
@@ -50,7 +57,7 @@ RSpec.feature "AdminDashboard", type: :feature do
     expect(page).to have_content("Dodano nowy witraż do kategorii #{@category.name}")
   end
 
-  scenario "adds a photo to the category" do
+  scenario "verifies the photo count in the category" do
     visit admin_dashboard_path
     select @category.name, from: 'photo_category_id'
     attach_file('photo_images', Rails.root.join('spec/fixtures/files/sample.jpg'))
