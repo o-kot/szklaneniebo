@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "IndexPage", type: :feature do
-  before(:all) do
+  before do
     create(:author)
   end
 
@@ -18,10 +18,6 @@ RSpec.feature "IndexPage", type: :feature do
   scenario "loads the logo image" do
     visit root_path
     expect(page).to have_css("img[src*='logo']")
-  end
-
-  before(:each) do
-    @autor = create(:author)
   end
 
   scenario "loads the artist's photo" do

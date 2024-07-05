@@ -42,8 +42,7 @@ class Admin::DashboardController < ApplicationController
     if params[:category_id].present?
       @category = Category.find(params[:category_id])
       if params[:images].present? && params[:images].any? { |image| image.present? }
-        # Filter out any empty strings
-        params[:images].reject(&:blank?).each do |image|
+        params[:images].compact_blank.each do |image|
           @category.photos.create(image: image)
         end
         flash[:photo_notice] = "Dodano nowy witraż do kategorii #{@category.name}"
