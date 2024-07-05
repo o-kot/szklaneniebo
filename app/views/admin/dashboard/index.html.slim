@@ -1,2 +1,71 @@
-h1 Admin::Dashboard#index
-p Find me in app/views/admin/dashboard/index.html.slim
+section.background
+  .overlay
+    header.admin-header
+      .header-content
+        .logo.logo-admin
+          img src=asset_path('logo.png') alt="Logo of the site consisting of the name of the site and an outline of an angel"
+        h1 Panel administracyjny
+
+    section#admin-gallery
+      .admin-gallery-container
+        .admin-section-content
+          - if flash[:category_notice]
+            .flash.flash-notice = flash[:category_notice]
+          - if flash[:category_alert]
+            .flash.flash-alert = flash[:category_alert]
+          h2 Dodaj nową kategorię do galerii
+          = form_with model: Category.new, url: admin_create_category_path, local: true do |f|
+            div
+              = f.label :name, "Nazwa kategorii", class: 'admin-dashboard-label'
+              = f.text_field :name, id: 'category_name', class: 'admin-input-field'
+            div
+              = f.submit 'Dodaj kategorię', class: 'admin-btn'
+
+        .admin-section-content
+          - if flash[:photo_notice]
+            .flash.flash-notice = flash[:photo_notice]
+          - if flash[:photo_alert]
+            .flash.flash-alert = flash[:photo_alert]
+          h2 Dodaj nowy witraż
+          = form_with url: admin_add_photos_path, local: true, multipart: true do |f|
+            div
+              = f.label :category_id, 'Wybierz kategorię', class: 'admin-dashboard-label'
+              = f.collection_select :category_id, @categories, :id, :name, { prompt: 'Wybierz kategorię' }, class: 'admin-input-field', id: 'photo_category_id'
+            div
+              = f.label :images, 'Wybierz witraż', class: 'admin-dashboard-label'
+              = f.file_field :images, multiple: true, class: 'admin-input-field', id: 'photo_images'
+            div
+              = f.submit 'Dodaj witraż', class: 'admin-btn'
+
+    section#admin-about-me
+      .admin-gallery-container
+        .admin-section-content
+          - if flash[:author_photo_notice]
+            .flash.flash-notice = flash[:author_photo_notice]
+          - if flash[:author_photo_alert]
+            .flash.flash-alert = flash[:author_photo_alert]
+          h2 Zmień swoje zdjęcie
+          .form-photo-container
+            = form_with model: @autor, url: admin_update_author_photo_path, local: true, method: :patch, multipart: true do |f|
+              div
+                = f.label :photo, "Zdjęcie", class: 'admin-dashboard-label'
+                = f.file_field :photo, name: 'author[photo]', class: 'admin-input-field', id: 'author_photo'
+              div
+                = f.submit 'Zmień zdjęcie', class: 'btn'
+            - if @autor&.photo&.attached?
+              .current-photo
+                div.admin-dashboard-label Aktualne zdjęcie:
+                img src=rails_blob_path(@autor.photo, only_path: true) alt="Current author photo" class="admin-current-photo"
+
+        .admin-section-content
+          - if flash[:author_about_notice]
+            .flash.flash-notice = flash[:author_about_notice]
+          - if flash[:author_about_alert]
+            .flash.flash-alert = flash[:author_about_alert]
+          h2 Zmień tekst o sobie
+          = form_with model: @autor, url: admin_update_author_about_path, local: true, method: :patch do |f|
+            div
+              = f.label :about, "O mnie", class: 'admin-dashboard-label'
+              = f.text_area :about, class: 'admin-input-field admin-textarea', id: 'about-textarea'
+            div
+              = f.submit 'Zmień tekst', class: 'btn'

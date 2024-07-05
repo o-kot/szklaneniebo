@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Toggle password visibility
   const eyeIcon = document.querySelector('.eye-icon');
   const passwordField = document.getElementById('password');
 
@@ -10,17 +11,29 @@ document.addEventListener('DOMContentLoaded', function() {
       this.classList.toggle('fa-eye');
     });
   }
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-  const alert = document.querySelector('.alert');
+  // Hide flash message on form submission only if there's no redirect
   const form = document.querySelector('form');
 
   if (form) {
-    form.addEventListener('submit', function() {
-      if (alert) {
+    form.addEventListener('submit', function(event) {
+      const alert = document.querySelector('.alert');
+      if (alert && !event.defaultPrevented) {
         alert.style.display = 'none';
       }
     });
+  }
+
+  // Auto-adjust textarea height
+  const textarea = document.getElementById('about-textarea');
+
+  if (textarea) {
+    const adjustHeight = () => {
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    };
+
+    adjustHeight();
+    textarea.addEventListener('input', adjustHeight);
   }
 });

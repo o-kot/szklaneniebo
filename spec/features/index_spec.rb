@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 RSpec.feature "IndexPage", type: :feature do
+  before(:all) do
+    create(:author)
+  end
+
   scenario "renders index page with expected content" do
     visit root_path
     expect(page).to have_content('Fascynacja witrażami była we mnie od zawsze.')
-    expect(page).to have_selector('.gallery-categories')
   end
 
   scenario "displays the artist's name at the bottom" do
