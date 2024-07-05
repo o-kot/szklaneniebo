@@ -13,6 +13,6 @@ RSpec.describe Author, type: :model do
 
   it "is not valid without an about text" do
     author = build(:author, about: nil)
-    expect(author).to_not be_valid
+    expect(author).not_to be_valid
   end
 end
