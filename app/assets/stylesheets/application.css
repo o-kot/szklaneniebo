@@ -93,7 +93,7 @@ section#about.active, section#gallery.active {
 }
 
 .right-column img {
-  max-width: 100%;
+  max-width: 600px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -184,6 +184,11 @@ section#about.active, section#gallery.active {
 
 /* Admin */
 
+.logo-admin {
+  height: 150px;
+}
+
+
 .container {
   display: flex;
   justify-content: center;
@@ -252,4 +257,152 @@ input[type="submit"]:hover {
   border-radius: 5px;
   border: 1px solid #f5c6cb;
   text-align: center;
+}
+
+/* Admin Panel*/
+
+header.admin-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.logo.logo-admin {
+  margin-right: 10px;
+}
+
+.header-content h1 {
+  color: #007bff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: -webkit-linear-gradient(#007bff, #0056b3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-admin img {
+  max-height: 150px;
+}
+
+/* Admin Sections */
+section#admin-gallery,
+section#admin-about-me {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+
+.admin-gallery-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.admin-section-content {
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  flex: 1;
+  min-width: 300px;
+}
+
+section#admin-gallery h2,
+section#admin-about-me h2 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 50px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.admin-dashboard-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+section#admin-gallery .admin-input-field,
+section#admin-about-me .admin-input-field {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+section#admin-gallery .admin-input-field:focus,
+section#admin-about-me .admin-input-field:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.admin-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 10px;
+}
+
+.admin-btn:hover {
+  background-color: #0056b3;
+}
+
+.form-photo-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.admin-current-photo {
+  max-width: 250px;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+}
+
+.admin-textarea {
+  min-height: 150px;
+  height: auto;
+  resize: vertical;
+}
+
+.flash-notice {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+.flash-alert {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 3px;
 }
