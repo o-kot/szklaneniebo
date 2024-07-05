@@ -5,6 +5,8 @@
 
     - if flash[:alert]
       .alert = flash[:alert]
+    - if flash[:notice]
+      .notice = flash[:notice]
 
     = form_with(url: admin_login_path, local: true) do |f|
       div
