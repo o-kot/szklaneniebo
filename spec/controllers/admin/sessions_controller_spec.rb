@@ -32,7 +32,7 @@ RSpec.describe Admin::SessionsController, type: :controller do
       end
 
       it "sets flash alert" do
-        expect(flash[:alert]).to eq('Nieprawdidłowe hasło albo login')
+        expect(flash[:alert]).to eq('Nieprawdidłowe hasło albo login.')
       end
     end
   end
@@ -52,7 +52,7 @@ RSpec.describe Admin::SessionsController, type: :controller do
     end
 
     it "sets flash notice" do
-      expect(flash[:notice]).to eq('Zostałeś wylogowany')
+      expect(flash[:notice]).to eq('Zostałeś wylogowany.')
     end
   end
 end

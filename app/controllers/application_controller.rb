@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
 
   def authenticate_admin!
     unless admin_logged_in?
-      redirect_to admin_login_path, alert: 'Ta sekcja dostępna jest tylko dla administratora strony po zalogowaniu.'
+      flash[:alert] = I18n.t('flash.admin_not_logged_alert', locale: :pl)
+      redirect_to admin_login_path
     end
   end
 

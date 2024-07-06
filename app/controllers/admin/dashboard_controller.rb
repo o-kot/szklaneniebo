@@ -9,21 +9,21 @@ class Admin::DashboardController < ApplicationController
   def update_author_photo
     if params[:author].present? && params[:author][:photo].present?
       if @autor.update(photo: author_params[:photo])
-        flash[:author_photo_notice] = 'Zdjęcie zostało zaktualizowane.'
+        flash[:author_photo_notice] = I18n.t('flash.author_photo_notice', locale: :pl)
       else
-        flash[:author_photo_alert] = 'Wystąpił błąd podczas aktualizacji zdjęcia.'
+        flash[:author_photo_alert] = I18n.t('flash.author_photo_update_error', locale: :pl)
       end
     else
-      flash[:author_photo_alert] = 'Wybierz zdjęcie do aktualizacji.'
+      flash[:author_photo_alert] = I18n.t('flash.author_photo_alert', locale: :pl)
     end
     redirect_to admin_dashboard_path
   end
 
   def update_author_about
     if @autor.update(about: author_params[:about])
-      flash[:author_about_notice] = 'Tekst o sobie został zaktualizowany.'
+      flash[:author_about_notice] = I18n.t('flash.author_about_notice', locale: :pl)
     else
-      flash[:author_about_alert] = 'Nie udało się zaktualizować tekstu o sobie.'
+      flash[:author_about_alert] = I18n.t('flash.author_about_update_error', locale: :pl)
     end
     redirect_to admin_dashboard_path
   end
@@ -31,26 +31,18 @@ class Admin::DashboardController < ApplicationController
   def create_category
     @category = Category.new(category_params)
     if @category.save
-      flash[:category_notice] = 'Dodano nową kategorię do galerii'
+      flash[:category_notice] = I18n.t('flash.new_category_notice', locale: :pl)
     else
-      flash[:category_alert] = 'Błąd przy dodawaniu kategorii'
+      flash[:category_alert] = I18n.t('flash.new_category_error', locale: :pl)
     end
     redirect_to admin_dashboard_path
   end
 
   def add_photos
     if params[:category_id].present?
-      @category = Category.find(params[:category_id])
-      if params[:images].present? && params[:images].any? { |image| image.present? }
-        params[:images].compact_blank.each do |image|
-          @category.photos.create(image: image)
-        end
-        flash[:photo_notice] = "Dodano nowy witraż do kategorii #{@category.name}"
-      else
-        flash[:photo_alert] = 'Wybierz zdjęcia do dodania'
-      end
+      add_photos_to_category(params[:category_id], params[:images])
     else
-      flash[:photo_alert] = 'Wybierz kategorię'
+      flash_alert(I18n.t('flash.new_art_category_missing_error', locale: :pl))
     end
     redirect_to admin_dashboard_path
   end
@@ -67,5 +59,29 @@ class Admin::DashboardController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name)
+  end
+
+  def add_photos_to_category(category_id, images)
+    @category = Category.find(category_id)
+    if images.present? && images.any? { |image| image.present? }
+      save_photos(images)
+      flash_notice(I18n.t('flash.new_art_notice', category_name: @category.name, locale: :pl))
+    else
+      flash_alert(I18n.t('flash.new_art_missing_error', locale: :pl))
+    end
+  end
+
+  def save_photos(images)
+    images.compact_blank.each do |image|
+      @category.photos.create(image: image)
+    end
+  end
+
+  def flash_notice(message, now: false)
+    now ? flash.now[:photo_notice] = message : flash[:photo_notice] = message
+  end
+
+  def flash_alert(message, now: false)
+    now ? flash.now[:photo_alert] = message : flash[:photo_alert] = message
   end
 end

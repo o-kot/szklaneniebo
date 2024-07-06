@@ -25,7 +25,7 @@ RSpec.feature "AdminDashboard", type: :feature do
     visit admin_dashboard_path
     fill_in 'about-textarea', with: 'New about text'
     click_link_or_button 'Zmień tekst'
-    expect(page).to have_content('Tekst o sobie został zaktualizowany.')
+    expect(page).to have_content('Tekst został zaktualizowany.')
   end
 
   scenario "creates a new category and shows a success message" do
