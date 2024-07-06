@@ -39,3 +39,4 @@
 szklane_niebo.code-workspace
 
 /test/*
+/coverage/*
