@@ -7,13 +7,14 @@ class Admin::SessionsController < ApplicationController
       session[:admin] = true
       redirect_to admin_dashboard_path
     else
-      flash[:alert] = 'Nieprawdidłowe hasło albo login'
+      flash[:alert] = I18n.t('flash.admin_login_error', locale: :pl)
       render :new
     end
   end
 
   def destroy
     session[:admin] = nil
-    redirect_to admin_login_path, notice: 'Zostałeś wylogowany'
+    flash[:notice] = I18n.t('flash.admin_logout_notice', locale: :pl)
+    redirect_to admin_login_path
   end
 end
