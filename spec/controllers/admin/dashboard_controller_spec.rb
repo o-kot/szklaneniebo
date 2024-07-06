@@ -1,17 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Admin::DashboardController, type: :controller do
+  let(:category) { create(:category) }
+  let(:autor) { create(:author) }
+  let(:admin) { create(:admin) } # Assuming you have an admin factory and Devise for authentication
+
   before do
-    @category = create(:category)
-    @autor = create(:author)
-    allow(Author).to receive(:first).and_return(@autor) # Ensure the set_autor method returns the correct @autor
+    allow(Author).to receive(:first).and_return(autor) # Ensure the set_autor method returns the correct autor
     session[:admin] = true
+    sign_in admin if defined?(Devise) # If using Devise for authentication
   end
 
   describe 'PATCH #update_author_photo' do
     context 'when author and photo params are present and update is successful' do
       before do
-        allow(@autor).to receive(:update).and_return(true)
+        allow(autor).to receive(:update).and_return(true)
         patch :update_author_photo, params: { author: { photo: fixture_file_upload('sample.jpg', 'image/jpg') } }
       end
 
@@ -26,7 +29,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
 
     context 'when author and photo params are present but update fails' do
       before do
-        allow(@autor).to receive(:update).and_return(false)
+        allow(autor).to receive(:update).and_return(false)
         patch :update_author_photo, params: { author: { photo: fixture_file_upload('sample2.jpg', 'image/jpg') } }
       end
 
@@ -71,7 +74,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
 
     context 'when images are missing' do
       before do
-        post :add_photos, params: { category_id: @category.id, images: [] }
+        post :add_photos, params: { category_id: category.id, images: [] }
       end
 
       it 'sets a flash alert for missing images' do
@@ -87,7 +90,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
   describe 'PATCH #update_author_about' do
     context 'when about params are present and update is successful' do
       before do
-        allow(@autor).to receive(:update).and_return(true)
+        allow(autor).to receive(:update).and_return(true)
         patch :update_author_about, params: { author: { about: 'New about info' } }
       end
 
@@ -102,7 +105,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
 
     context 'when about params are present but update fails' do
       before do
-        allow(@autor).to receive(:update).and_return(false)
+        allow(autor).to receive(:update).and_return(false)
         patch :update_author_about, params: { author: { about: 'New about info' } }
       end
 
