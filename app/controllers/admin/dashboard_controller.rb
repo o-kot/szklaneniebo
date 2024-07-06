@@ -63,18 +63,28 @@ class Admin::DashboardController < ApplicationController
 
   def add_photos_to_category(category_id, images)
     @category = Category.find(category_id)
+
     if images.present? && images.any? { |image| image.present? }
-      save_photos(images)
-      flash_notice(I18n.t('flash.new_art_notice', category_name: @category.name, locale: :pl))
+      if save_photos(images)
+        flash_notice(I18n.t('flash.new_art_notice', category_name: @category.name, locale: :pl))
+      else
+        flash_alert(I18n.t('flash.new_art_duplicate_error', locale: :pl))
+      end
     else
       flash_alert(I18n.t('flash.new_art_missing_error', locale: :pl))
     end
   end
 
   def save_photos(images)
+    success = true
     images.compact_blank.each do |image|
-      @category.photos.create(image: image)
+      photo = @category.photos.create(image: image)
+      unless photo.persisted?
+        success = false
+        break
+      end
     end
+    success
   end
 
   def flash_notice(message, now: false)

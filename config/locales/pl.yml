@@ -8,6 +8,7 @@ pl:
     new_category_notice: "Dodano nową kategorię do galerii."
     new_category_error: "Wystąpił błąd podczas dodawaniu kategorii."
     new_art_missing_error: "Wybierz zdjęcia do dodania."
+    new_art_duplicate_error: "Ten witraż już istnieje w tej kategorii."
     new_art_notice: "Dodano nowy witraż do kategorii %{category_name}."
     new_art_category_missing_error: "Wybierz kategorię."
     admin_login_error: "Nieprawdidłowe hasło albo login."
