@@ -5,14 +5,18 @@ section.background
     nav
       ul
         li
-          a href="#about" O mnie
+         a href="#about" = t('nav.about')
         li
-          a href="#gallery" Galeria
+          a href="#gallery" = t('nav.gallery')
     section#about
       .content
         .left-column
-          - @autor.about.split("\n").each do |paragraph|
-            p = paragraph
+          - if I18n.locale == :en
+            - @translated_about.split("\n").each do |paragraph|
+              p = paragraph
+          - else
+            - @autor.about.split("\n").each do |paragraph|
+              p = paragraph
           p.signature
             = @autor.name
 
@@ -22,15 +26,18 @@ section.background
 
     section#gallery
       .gallery-categories
-        - @categories.each do |category|
+        - @categories.each_with_index do |category, i|
           - if category.photos.any?
             .category
-              h3 = category.name
+              - if I18n.locale == :en
+                h3 = @translated_category_names[i]
+              - else
+                h3 = category.name
               .gallery-content
                 - category.photos.each do |photo|
                   - if photo.image.attached?
                     .gallery-item
                       a(data-fancybox="#{category.name} Gallery" href=rails_blob_path(photo.image, only_path: true))
-                        - alt_text = category.name == 'Misc' ? 'Piece of art' : "#{category.name} stained glass"
+                        - alt_text = category.name == 'Różne' ? 'Piece of art' : "#{category.name} stained glass"
                         img src=rails_blob_path(photo.image, only_path: true) alt=alt_text
 

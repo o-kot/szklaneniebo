@@ -14,4 +14,6 @@ pl:
     admin_login_error: "Nieprawdidłowe hasło albo login."
     admin_logout_notice: "Zostałeś wylogowany."
     admin_not_logged_alert: "Ta sekcja dostępna jest tylko dla administratora strony po zalogowaniu."
-
+  nav:
+    about: "O mnie"
+    gallery: "Galeria"
