@@ -21,3 +21,30 @@ en:
     gallery: "Gallery"
   categories:
     names: ["Angels", "Lamps", "Mandalas", "Other"]
+  admin:
+    login:
+      username: "Login"
+      password: "Password"
+      submit: "Log In"
+      en:
+    dashboard:
+      logout: "Log Out"
+      header: "Admin Panel"
+      add_category:
+        title: "Add a new category to the gallery"
+        name: "Category name"
+        submit: "Add category"
+      add_stained_glass:
+        title: "Add new stained glass"
+        category: "Select category"
+        stained_glass: "Select stained glass"
+        submit: "Add stained glass"
+      change_photo:
+        title: "Change your photo"
+        photo: "Photo"
+        submit: "Change photo"
+        current_photo: "Current photo"
+      change_about:
+        title: "Change about text"
+        about: "About me"
+        submit: "Change text"
