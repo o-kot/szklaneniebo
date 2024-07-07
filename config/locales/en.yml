@@ -14,9 +14,10 @@ en:
     admin_login_error: "Wrong login or password."
     admin_logout_notice: "You were successfully logged out."
     admin_not_logged_alert: "This section is restricted for administrator."
-
-
-
-
-
-
+  about:
+    text: "I've always been fascinated by stained glass.\nAn image that changes. Light dancing to a sunny music.\nI used to be convinced that stained glass was a hobby only for a few chosen.\nAnd so it is - it requires patience, humility, acceptance and unhurriedness.\nGlass - brittle and hard, cold and warm, delicate and sharp...\nIt's been fascinating me and filling my free time.\nMy stained glass hobby has been going on for several years, I use the Tiffany technique.\nMy works can be found in many homes, both in Poland and abroad.\nCONTACT - alicja-631@wp.pl\nThank you for visiting my website..."
+  nav:
+    about: "About Me"
+    gallery: "Gallery"
+  categories:
+    names: ["Angels", "Lamps", "Mandalas", "Other"]
