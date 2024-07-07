@@ -27,8 +27,8 @@ RSpec.feature "AdminDashboard", type: :feature do
 
   scenario "redirects to login page if not authenticated" do
     visit admin_logout_path
-    visit admin_dashboard_path
-    expect(page).to have_current_path(admin_login_path)
+    visit admin_dashboard_path(locale: :pl)
+    expect(page).to have_current_path(admin_login_path(locale: :pl))
   end
 
   scenario "updates author's photo" do

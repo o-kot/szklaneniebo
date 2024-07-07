@@ -9,21 +9,21 @@ class Admin::DashboardController < ApplicationController
   def update_author_photo
     if params[:author].present? && params[:author][:photo].present?
       if @autor.update(photo: author_params[:photo])
-        flash[:author_photo_notice] = I18n.t('flash.author_photo_notice', locale: :pl)
+        flash[:author_photo_notice] = I18n.t('flash.author_photo_notice')
       else
-        flash[:author_photo_alert] = I18n.t('flash.author_photo_update_error', locale: :pl)
+        flash[:author_photo_alert] = I18n.t('flash.author_photo_update_error')
       end
     else
-      flash[:author_photo_alert] = I18n.t('flash.author_photo_alert', locale: :pl)
+      flash[:author_photo_alert] = I18n.t('flash.author_photo_alert')
     end
     redirect_to admin_dashboard_path
   end
 
   def update_author_about
     if @autor.update(about: author_params[:about])
-      flash[:author_about_notice] = I18n.t('flash.author_about_notice', locale: :pl)
+      flash[:author_about_notice] = I18n.t('flash.author_about_notice')
     else
-      flash[:author_about_alert] = I18n.t('flash.author_about_update_error', locale: :pl)
+      flash[:author_about_alert] = I18n.t('flash.author_about_update_error')
     end
     redirect_to admin_dashboard_path
   end
@@ -31,9 +31,9 @@ class Admin::DashboardController < ApplicationController
   def create_category
     @category = Category.new(category_params)
     if @category.save
-      flash[:category_notice] = I18n.t('flash.new_category_notice', locale: :pl)
+      flash[:category_notice] = I18n.t('flash.new_category_notice')
     else
-      flash[:category_alert] = I18n.t('flash.new_category_error', locale: :pl)
+      flash[:category_alert] = I18n.t('flash.new_category_error')
     end
     redirect_to admin_dashboard_path
   end
@@ -42,7 +42,7 @@ class Admin::DashboardController < ApplicationController
     if params[:category_id].present?
       add_photos_to_category(params[:category_id], params[:images])
     else
-      flash_alert(I18n.t('flash.new_art_category_missing_error', locale: :pl))
+      flash_alert(I18n.t('flash.new_art_category_missing_error'))
     end
     redirect_to admin_dashboard_path
   end
@@ -66,12 +66,12 @@ class Admin::DashboardController < ApplicationController
 
     if images.present? && images.any? { |image| image.present? }
       if save_photos(images)
-        flash_notice(I18n.t('flash.new_art_notice', category_name: @category.name, locale: :pl))
+        flash_notice(I18n.t('flash.new_art_notice', category_name: @category.name))
       else
-        flash_alert(I18n.t('flash.new_art_duplicate_error', locale: :pl))
+        flash_alert(I18n.t('flash.new_art_duplicate_error'))
       end
     else
-      flash_alert(I18n.t('flash.new_art_missing_error', locale: :pl))
+      flash_alert(I18n.t('flash.new_art_missing_error'))
     end
   end
 
