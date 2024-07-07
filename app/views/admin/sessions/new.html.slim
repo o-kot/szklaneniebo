@@ -10,12 +10,12 @@
 
     = form_with(url: admin_login_path, local: true) do |f|
       div
-        = f.label :username, 'Login'
+        = f.label :username, t('admin.login.username')
         = f.text_field :username, value: 'admin', readonly: true
       div
-        = f.label :password, 'Hasło'
+        = f.label :password, t('admin.login.password')
         .password-container
           = f.password_field :password, id: 'password'
           i.fas.fa-eye.eye-icon
       div
-        = f.submit 'Zaloguj'
+        = f.submit t('admin.login.submit')

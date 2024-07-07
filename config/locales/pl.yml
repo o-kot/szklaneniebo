@@ -17,3 +17,29 @@ pl:
   nav:
     about: "O mnie"
     gallery: "Galeria"
+  admin:
+    login:
+      username: "Login"
+      password: "Hasło"
+      submit: "Zaloguj"
+    dashboard:
+      logout: "Wyloguj"
+      header: "Panel administracyjny"
+      add_category:
+        title: "Dodaj nową kategorię do galerii"
+        name: "Nazwa kategorii"
+        submit: "Dodaj kategorię"
+      add_stained_glass:
+        title: "Dodaj nowy witraż"
+        category: "Wybierz kategorię"
+        stained_glass: "Wybierz witraż"
+        submit: "Dodaj witraż"
+      change_photo:
+        title: "Zmień swoje zdjęcie"
+        photo: "Zdjęcie"
+        submit: "Zmień zdjęcie"
+        current_photo: "Aktualne zdjęcie"
+      change_about:
+        title: "Zmień tekst o sobie"
+        about: "O mnie"
+        submit: "Zmień tekst"
