@@ -56,7 +56,7 @@ section.background
             - if @autor&.photo&.attached?
               .current-photo
                 div.admin-dashboard-label = t('admin.dashboard.change_photo.current_photo')
-                img src=rails_blob_path(@autor.photo, only_path: true) alt="Current author photo" class="admin-current-photo"
+                img src=url_for(@autor.photo) alt="Current author photo" class="admin-current-photo"
 
         .admin-section-content
           - if flash[:author_about_notice]
@@ -90,7 +90,7 @@ section.background
                       - if photo.image.attached?
                         .admin-photo-item
                           .admin-photo-preview
-                            img src=rails_blob_path(photo.image, only_path: true) alt="#{category.name} photo"
+                            img src=url_for(photo.image) alt="#{category.name} photo"
                           .admin-photo-actions
                             = button_to t('admin.dashboard.manage_photos.delete'), admin_delete_photo_path(photo), method: :delete, data: { confirm: t('admin.dashboard.manage_photos.confirm_delete') }, class: 'admin-btn admin-btn-danger'
           - else
