@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       patch 'update_author_about', to: 'dashboard#update_author_about'
       post 'create_category', to: 'dashboard#create_category'
       post 'add_photos', to: 'dashboard#add_photos'
+      delete 'delete_photo/:id', to: 'dashboard#delete_photo', as: 'delete_photo'
     end
   end
 end

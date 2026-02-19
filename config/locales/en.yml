@@ -11,6 +11,8 @@ en:
     new_art_missing_error: "Choose a file."
     new_art_category_missing_error: "Chose a category."
     new_art_duplicate_error: "This photo already exists in this category."
+    photo_delete_notice: "Photo successfully deleted from %{category_name}."
+    photo_delete_error: "Failed to delete photo."
     admin_login_error: "Wrong login or password."
     admin_logout_notice: "You were successfully logged out."
     admin_not_logged_alert: "This section is restricted for administrator."
@@ -48,3 +50,8 @@ en:
         title: "Change about text"
         about: "About me"
         submit: "Change text"
+      manage_photos:
+        title: "Manage Photos"
+        delete: "Delete"
+        confirm_delete: "Are you sure you want to delete this photo?"
+        no_categories: "No categories or photos available"

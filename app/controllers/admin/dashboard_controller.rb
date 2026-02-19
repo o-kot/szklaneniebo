@@ -47,6 +47,18 @@ class Admin::DashboardController < ApplicationController
     redirect_to admin_dashboard_path
   end
 
+  def delete_photo
+    @photo = Photo.find(params[:id])
+    category_name = @photo.category.name
+
+    if @photo.destroy
+      flash[:photo_delete_notice] = I18n.t('flash.photo_delete_notice', category_name: category_name)
+    else
+      flash[:photo_delete_alert] = I18n.t('flash.photo_delete_error')
+    end
+    redirect_to admin_dashboard_path
+  end
+
   private
 
   def set_autor

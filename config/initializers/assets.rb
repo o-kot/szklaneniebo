@@ -10,3 +10,8 @@ Rails.application.config.assets.version = "1.0"
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# config/initializers/upload_size_limiter.rb
+require Rails.root.join('lib/middleware/upload_size_limiter')
+
+Rails.application.config.middleware.use Middleware::UploadSizeLimiter, 100.megabytes

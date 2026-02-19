@@ -70,3 +70,28 @@ section.background
               = f.text_area :about, class: 'admin-input-field admin-textarea', id: 'about-textarea'
             div
               = f.submit t('admin.dashboard.change_about.submit'), class: 'btn'
+
+    section#admin-manage-photos
+      .admin-gallery-container
+        .admin-section-content.full-width
+          - if flash[:photo_delete_notice]
+            .flash.flash-notice = flash[:photo_delete_notice]
+          - if flash[:photo_delete_alert]
+            .flash.flash-alert = flash[:photo_delete_alert]
+          h2 = t('admin.dashboard.manage_photos.title')
+
+          - if @categories.any?
+            - @categories.each do |category|
+              - if category.photos.any?
+                .admin-category-section
+                  h3 = "#{category.name} (#{category.photos.count})"
+                  .admin-photo-grid
+                    - category.photos.each do |photo|
+                      - if photo.image.attached?
+                        .admin-photo-item
+                          .admin-photo-preview
+                            img src=rails_blob_path(photo.image, only_path: true) alt="#{category.name} photo"
+                          .admin-photo-actions
+                            = button_to t('admin.dashboard.manage_photos.delete'), admin_delete_photo_path(photo), method: :delete, data: { confirm: t('admin.dashboard.manage_photos.confirm_delete') }, class: 'admin-btn admin-btn-danger'
+          - else
+            p.no-photos = t('admin.dashboard.manage_photos.no_categories')
