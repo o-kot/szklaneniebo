@@ -499,8 +499,9 @@ section#admin-manage-photos h2 {
 
 .admin-photo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1rem;
+  width: 100%;
 }
 
 .admin-photo-item {
@@ -512,6 +513,7 @@ section#admin-manage-photos h2 {
   gap: 0.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 0; /* Important for grid overflow */
 }
 
 .admin-photo-item:hover {
@@ -519,16 +521,27 @@ section#admin-manage-photos h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.admin-photo-preview {
+  width: 100%;
+}
+
 .admin-photo-preview img {
   width: 100%;
   height: 150px;
   object-fit: cover;
   border-radius: 4px;
+  display: block;
 }
 
 .admin-photo-actions {
   display: flex;
   justify-content: center;
+  width: 100%;
+}
+
+.admin-photo-actions form {
+  width: 100%;
+  margin: 0;
 }
 
 .admin-btn-danger {
@@ -541,6 +554,7 @@ section#admin-manage-photos h2 {
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
+  display: block;
 }
 
 .admin-btn-danger:hover {
