@@ -47,34 +47,43 @@ namespace :photos do
 
         puts "[#{index + 1}/#{total_photos}] 🔄 Processing Photo ##{photo.id} (#{image_blob.filename})..."
 
-        # Backup original image
+        # Download once and save to backup
+        original_data = image_blob.download
         backup_file = backup_dir.join("photo_#{photo.id}_#{image_blob.filename}")
-        File.open(backup_file, 'wb') do |file|
-          file.write(image_blob.download)
-        end
+        File.write(backup_file, original_data, mode: 'wb')
         puts "   ✓ Backed up to: #{backup_file.relative_path_from(Rails.root)}"
 
-        # Download and resize
+        # Prepare for resize
         original_filename = image_blob.filename.to_s
         original_content_type = image_blob.content_type
 
+        temp_file = nil
+        resized_image = nil
+
         begin
+          # Create temp file from downloaded data
+          temp_file = Tempfile.new(['original', File.extname(original_filename)])
+          temp_file.binmode
+          temp_file.write(original_data)
+          temp_file.close
+
           # Try Vips first
           resized_image = ImageProcessing::Vips
-            .source(image_blob.download)
+            .source(temp_file.path)
             .resize_to_limit(Photo::MAX_IMAGE_DIMENSION, Photo::MAX_IMAGE_DIMENSION)
             .saver(quality: Photo::IMAGE_QUALITY)
             .call
 
-          # Replace the image
+          # Purge old image and attach resized one
           photo.image.purge
-          photo.image.attach(
-            io: File.open(resized_image.path),
-            filename: original_filename,
-            content_type: original_content_type
-          )
 
-          resized_image.unlink if resized_image.respond_to?(:unlink)
+          File.open(resized_image.path, 'rb') do |file|
+            photo.image.attach(
+              io: file,
+              filename: original_filename,
+              content_type: original_content_type
+            )
+          end
 
           puts "   ✓ Resized successfully"
           resized += 1
@@ -84,23 +93,29 @@ namespace :photos do
           puts "   ℹ️  Falling back to ImageMagick..."
 
           resized_image = ImageProcessing::MiniMagick
-            .source(image_blob.download)
+            .source(temp_file.path)
             .resize_to_limit(Photo::MAX_IMAGE_DIMENSION, Photo::MAX_IMAGE_DIMENSION)
             .convert('jpg')
             .saver(quality: Photo::IMAGE_QUALITY)
             .call
 
           photo.image.purge
-          photo.image.attach(
-            io: File.open(resized_image.path),
-            filename: original_filename,
-            content_type: original_content_type
-          )
 
-          resized_image.unlink if resized_image.respond_to?(:unlink)
+          File.open(resized_image.path, 'rb') do |file|
+            photo.image.attach(
+              io: file,
+              filename: original_filename,
+              content_type: original_content_type
+            )
+          end
 
           puts "   ✓ Resized successfully (ImageMagick)"
           resized += 1
+
+        ensure
+          # Cleanup temp files
+          temp_file&.unlink
+          resized_image&.unlink if resized_image.respond_to?(:unlink)
         end
 
         processed += 1
