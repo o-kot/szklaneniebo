@@ -39,5 +39,5 @@ section.background
                     .gallery-item
                       a(data-fancybox="#{category.name} Gallery" href=url_for(photo.image))
                         - alt_text = category.name == 'Różne' ? 'Piece of art' : "#{category.name} stained glass"
-                        img src=url_for(photo.image) alt=alt_text
+                        img src=url_for(photo.image.variant(resize_to_limit: [400, 400])) alt=alt_text
 

@@ -90,7 +90,7 @@ section.background
                       - if photo.image.attached?
                         .admin-photo-item
                           .admin-photo-preview
-                            img src=url_for(photo.image) alt="#{category.name} photo"
+                            img src=url_for(photo.image.variant(resize_to_limit: [300, 300])) alt="#{category.name} photo"
                           .admin-photo-actions
                             = button_to t('admin.dashboard.manage_photos.delete'), admin_delete_photo_path(photo), method: :delete, data: { confirm: t('admin.dashboard.manage_photos.confirm_delete') }, class: 'admin-btn admin-btn-danger'
           - else
