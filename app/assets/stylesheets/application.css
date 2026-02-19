@@ -342,6 +342,7 @@ section#admin-about-me {
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .admin-section-content {
@@ -479,7 +480,8 @@ section#admin-manage-photos h2 {
 
 .admin-section-content.full-width {
   width: 100%;
-  flex: none;
+  flex: 1 1 100%;
+  max-width: 100%;
 }
 
 .admin-category-section {
@@ -488,6 +490,8 @@ section#admin-manage-photos h2 {
   background: rgba(0, 123, 255, 0.05);
   border-radius: 8px;
   border: 1px solid rgba(0, 123, 255, 0.1);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .admin-category-section h3 {
@@ -498,10 +502,11 @@ section#admin-manage-photos h2 {
 }
 
 .admin-photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
   gap: 1rem;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .admin-photo-item {
