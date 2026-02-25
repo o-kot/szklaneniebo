@@ -22,7 +22,7 @@ section.background
 
         .right-column
           - if @autor&.photo&.attached?
-            img src=rails_blob_path(@autor.photo, only_path: true) alt="Artist portrait"
+            img src=url_for(@autor.photo) alt="Artist portrait"
 
     section#gallery
       .gallery-categories
@@ -37,7 +37,7 @@ section.background
                 - category.photos.each do |photo|
                   - if photo.image.attached?
                     .gallery-item
-                      a(data-fancybox="#{category.name} Gallery" href=rails_blob_path(photo.image, only_path: true))
+                      a(data-fancybox="#{category.name} Gallery" href=url_for(photo.image))
                         - alt_text = category.name == 'Różne' ? 'Piece of art' : "#{category.name} stained glass"
-                        img src=rails_blob_path(photo.image, only_path: true) alt=alt_text
+                        img src=url_for(photo.image.variant(resize_to_limit: [400, 400])) alt=alt_text
 

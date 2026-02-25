@@ -47,6 +47,18 @@ class Admin::DashboardController < ApplicationController
     redirect_to admin_dashboard_path
   end
 
+  def delete_photo
+    @photo = Photo.find(params[:id])
+    category_name = @photo.category.name
+
+    if @photo.destroy
+      flash[:photo_delete_notice] = I18n.t('flash.photo_delete_notice', category_name: category_name)
+    else
+      flash[:photo_delete_alert] = I18n.t('flash.photo_delete_error')
+    end
+    redirect_to admin_dashboard_path
+  end
+
   private
 
   def set_autor
@@ -77,14 +89,66 @@ class Admin::DashboardController < ApplicationController
 
   def save_photos(images)
     success = true
-    images.compact_blank.each do |image|
-      photo = @category.photos.create(image: image)
-      unless photo.persisted?
-        success = false
-        break
+    images.compact_blank.each do |uploaded_file|
+      begin
+        # Resize the image before creating the photo record
+        resized_image = resize_uploaded_image(uploaded_file)
+
+        # Create photo with resized image
+        photo = @category.photos.create(image: resized_image)
+
+        unless photo.persisted?
+          success = false
+          break
+        end
+      rescue => e
+        Rails.logger.error "Failed to process image: #{e.message}"
+        # Try to save original if resizing fails
+        photo = @category.photos.create(image: uploaded_file)
+        success = photo.persisted?
       end
     end
     success
+  end
+
+  def resize_uploaded_image(uploaded_file)
+    return uploaded_file unless uploaded_file.content_type.start_with?('image/')
+
+    require 'image_processing/vips'
+
+    begin
+      # Process with Vips
+      resized = ImageProcessing::Vips
+        .source(uploaded_file.tempfile)
+        .resize_to_limit(Photo::MAX_IMAGE_DIMENSION, Photo::MAX_IMAGE_DIMENSION)
+        .saver(quality: Photo::IMAGE_QUALITY)
+        .call
+
+      # Create a new uploaded file from the resized image
+      ActionDispatch::Http::UploadedFile.new(
+        tempfile: resized,
+        filename: uploaded_file.original_filename,
+        type: uploaded_file.content_type
+      )
+    rescue LoadError
+      # Fall back to ImageMagick if Vips is not available
+      resized = ImageProcessing::MiniMagick
+        .source(uploaded_file.tempfile)
+        .resize_to_limit(Photo::MAX_IMAGE_DIMENSION, Photo::MAX_IMAGE_DIMENSION)
+        .convert('jpg')
+        .saver(quality: Photo::IMAGE_QUALITY)
+        .call
+
+      ActionDispatch::Http::UploadedFile.new(
+        tempfile: resized,
+        filename: uploaded_file.original_filename,
+        type: uploaded_file.content_type
+      )
+    rescue => e
+      Rails.logger.error "Image resizing failed: #{e.message}"
+      # Return original if resizing fails
+      uploaded_file
+    end
   end
 
   def flash_notice(message, now: false)

@@ -11,6 +11,8 @@ pl:
     new_art_duplicate_error: "Ten witraż już istnieje w tej kategorii."
     new_art_notice: "Dodano nowy witraż do kategorii %{category_name}."
     new_art_category_missing_error: "Wybierz kategorię."
+    photo_delete_notice: "Zdjęcie zostało pomyślnie usunięte z kategorii %{category_name}."
+    photo_delete_error: "Nie udało się usunąć zdjęcia."
     admin_login_error: "Nieprawdidłowe hasło albo login."
     admin_logout_notice: "Zostałeś wylogowany."
     admin_not_logged_alert: "Ta sekcja dostępna jest tylko dla administratora strony po zalogowaniu."
@@ -43,3 +45,8 @@ pl:
         title: "Zmień tekst o sobie"
         about: "O mnie"
         submit: "Zmień tekst"
+      manage_photos:
+        title: "Zarządzaj zdjęciami"
+        delete: "Usuń"
+        confirm_delete: "Czy na pewno chcesz usunąć to zdjęcie?"
+        no_categories: "Brak kategorii lub zdjęć"
